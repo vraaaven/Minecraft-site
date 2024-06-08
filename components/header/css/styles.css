@@ -1,0 +1,44 @@
+body{
+    margin: 0;
+}
+.header {
+    background: linear-gradient(to bottom right,black, #0c102a);
+    display: flex;
+    justify-content: space-between;
+    font-family: "Open Sans", sans-serif;
+    padding: 30px;
+}
+.header__container {
+    display: flex;
+    align-items: center;
+}
+.header__menu {
+    display: flex;
+    gap: 30px;
+}
+.header__menu-link {
+    text-decoration: none;
+    color: white;
+    font-weight: 700;
+    font-size: 20px;
+}
+.header__menu-link:hover {
+    color: cornflowerblue;
+}
+.header__socials {
+    display: flex;
+    flex-direction: column;
+}
+.header__socials-item {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+.header__socials-link {
+    text-decoration: none;
+    color: white;
+}
+.header__socials-icon img{
+    width: 24px;
+    height: 24px;
+}
