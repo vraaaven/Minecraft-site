@@ -1,0 +1,84 @@
+@import "../../variables";
+
+.how-to {
+  padding: 0 $rl-margin-lg;
+
+  &__container {
+    background: linear-gradient(to top right, #9966cc, #e6ccff);
+    padding: 30px;
+    width: 60%;
+    border-radius: 30px;
+    position: relative;
+
+    ul {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+
+      li {
+        background-image: url('/public/images/Amethyst_Shard_JE2_BE1.webp');
+        background-size: 20px 20px;
+        background-repeat: no-repeat;
+        background-position: 0 50%;
+        padding-left: 30px;
+        line-height: 1.2em;
+      }
+    }
+  }
+
+  &__sticker {
+    width: 40px;
+    height: 40px;
+    position: absolute;
+
+    &.upper {
+      top: -10%;
+      right: -3%;
+      transform: rotate(45deg);
+    }
+
+    &.bottom {
+      bottom: -10%;
+      left: -3%;
+      transform: rotate(-135deg);
+    }
+  }
+  @media screen and (max-width: 1100px){
+    & {
+      padding: 0 30px;
+    }
+    &__container {
+      width: 100%;
+      padding: 20px 15px;
+      ul {
+        gap: 10px;
+      }
+    }
+    &__sticker {
+      &.upper {
+        top: -11%;
+        right: -2.5%;
+        transform: rotate(45deg);
+      }
+      &.bottom {
+        bottom: -11%;
+        left: -2.5%;
+        transform: rotate(-135deg);
+      }
+      @media screen and (max-width: 540px) {
+        &.upper {
+          top: -6%;
+          right: -6.7%;
+          transform: rotate(45deg);
+        }
+        &.bottom {
+          bottom: -6%;
+          left: -6.7%;
+          transform: rotate(-135deg);
+        }
+      }
+    }
+  }
+}

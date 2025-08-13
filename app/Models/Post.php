@@ -7,6 +7,12 @@ use App\Lib\PostInfo;
 
 class Post
 {
+    /**
+     * Получает все новости без фильтрации (базовый метод).
+     * @param int $page Номер страницы.
+     * @param int $limit Количество новостей на странице.
+     * @return array
+     */
     public static function getList($page, $limit): array
     {
         $params = [
@@ -23,88 +29,128 @@ class Post
         return $aRes;
     }
 
-    public static function getCategories(): array
+    /**
+     * Получает новости, доступные пользователю (фильтрованный метод).
+     * @param int $page Номер страницы.
+     * @param int $limit Количество новостей на странице.
+     * @param bool $isPlayer Статус игрока, определяющий, какие новости показывать.
+     * @return array
+     */
+    public static function getPostsForUser($page, $limit, $isPlayer): array
     {
-        return Db::getInstance()->row('SELECT * FROM categories');
+        $params = [
+            'start' => ($page - 1) * $limit,
+            'limit' => $limit,
+        ];
+
+        $whereClause = !$isPlayer ? 'WHERE is_server_post = 0' : '';
+
+        $sql = "SELECT * FROM posts {$whereClause} ORDER BY date DESC LIMIT :start, :limit";
+        $posts = Db::getInstance()->row($sql, $params);
+        $aRes = [];
+        foreach ($posts as $post) {
+            $object = PostInfo::getFromArray($post);
+            $aRes[] = $object;
+        }
+        return $aRes;
     }
 
-    public static function getCount($isAdmin = false): int
+    /**
+     * Получает общее количество всех новостей.
+     * @return int
+     */
+    public static function getCount(): int
     {
-        if (!$isAdmin) {
-            $sql = 'SELECT COUNT(id) FROM posts';
-        } else {
-            $sql = 'SELECT COUNT(id) FROM posts WHERE id_xml = "none"';
-        }
+        $sql = 'SELECT COUNT(id) FROM posts';
         return Db::getInstance()->column($sql);
     }
 
-    public static function getItem($id): object
+    /**
+     * Получает количество новостей, доступных пользователю.
+     * @param bool $isPlayer Статус игрока.
+     * @return int
+     */
+    public static function getCountForUser($isPlayer): int
     {
-        $arRes = Db::getInstance()->row('SELECT * FROM posts WHERE id =' . $id)[0];
-        $object = PostInfo::getFromArray($arRes);
-        return $object;
+        $whereClause = !$isPlayer ? 'WHERE is_server_post = 0' : '';
+        $sql = "SELECT COUNT(id) FROM posts {$whereClause}";
+        return Db::getInstance()->column($sql);
     }
 
-    public static function deletePost($id): void
+    /**
+     * Получает одну новость по её ID.
+     * @param int $id ID новости.
+     * @return object|null
+     */
+    public static function getItem(int $id): ?object
     {
-        $params = [
-            'id' => $id,
-        ];
-        Db::getInstance()->query(
-            'DELETE FROM reactions_users WHERE reaction_id IN (SELECT id FROM reactions WHERE post_id = :id)',
-            $params
-        );
-        Db::getInstance()->query('DELETE FROM reactions WHERE post_id = :id', $params);
-        Db::getInstance()->query('DELETE FROM posts WHERE id = :id', $params);
+        $arRes = Db::getInstance()->row('SELECT * FROM posts WHERE id = :id', ['id' => $id]);
+        if (empty($arRes)) {
+            return null;
+        }
+        return PostInfo::getFromArray($arRes[0]);
     }
 
-    public static function addPost(): void
+    /**
+     * Добавляет новую новость.
+     * @param array $postData Данные новости.
+     * @return void
+     */
+    public static function addPost(array $postData): void
     {
         $post = [
-            'name' => htmlspecialchars($_POST['name']),
-            'category_id' => (int)$_POST['category'],
-            'announce' => htmlspecialchars($_POST['description']),
-            'detail_text' => htmlspecialchars($_POST['description']),
-            'date' => htmlspecialchars($_POST['date']),
-            'id_xml' => 'none',
+            'name' => htmlspecialchars($postData['name']),
+            'code' => \App\Lib\Helper::slugify(htmlspecialchars($postData['name'])),
+            'announce' => htmlspecialchars($postData['announce']),
+            'detail_text' => htmlspecialchars($postData['detail_text']),
+            'date' => date('Y-m-d H:i:s'), // <-- Добавляем текущую дату
+            'is_server_post' => $postData['is_server_post'] ?? 0,
         ];
         Db::getInstance()->query(
-            'INSERT INTO posts (name, announce, detail_text, date, id_xml,category_id) 
-            VALUES (:name, :announce, :detail_text, :date, :id_xml, :category_id)',
+            'INSERT INTO posts (name, announce, detail_text, date, is_server_post, code) 
+            VALUES (:name, :announce, :detail_text, :date, :is_server_post, :code)',
             $post
         );
     }
-    public static function updatePost($id): void
+
+    /**
+     * Обновляет новость по её ID.
+     * @param int $id ID новости.
+     * @param array $postData Данные новости для обновления.
+     * @return void
+     */
+    public static function updatePost(int $id, array $postData): void
     {
         $params = [
             'id' => $id,
-            'name' => htmlspecialchars($_POST['name']),
-            'detail_text' => htmlspecialchars($_POST['description']),
-            'category_id' => (int)$_POST['category'],
+            'name' => htmlspecialchars($postData['name']),
+            'code' => \App\Lib\Helper::slugify(htmlspecialchars($postData['name'])),
+            'announce' => htmlspecialchars($postData['announce']),
+            'detail_text' => htmlspecialchars($postData['detail_text']),
+            'is_server_post' => $postData['is_server_post'] ?? 0,
         ];
         Db::getInstance()->query(
-            'UPDATE posts SET name = :name, detail_text = :detail_text, category_id = :category_id WHERE id = :id',
+            'UPDATE posts SET name = :name, announce = :announce, detail_text = :detail_text, code = :code ,is_server_post = :is_server_post WHERE id = :id',
             $params
         );
     }
-    public static function addCategory($xml): void
-    {
-        foreach ($xml->shop->categories->category as $category) {
-            $cat = [
-                "id_xml" => (int)$category->attributes()->id,
-                'name' => (string)$category
-            ];
-            $param = [
-                'id_xml' => $cat['id_xml'],
-            ];
-            $result = Db::getInstance()->row(
-                'SELECT EXISTS(SELECT 1 FROM categories WHERE id_xml = :id_xml) as record_exists',
-                $param
-            );
-            if ($result[0]['record_exists'] != 1) {
-                Db::getInstance()->query('INSERT INTO categories (name,id_xml) VALUES (:name, :id_xml)', $cat);
-            }
-        }
-    }
 
+    /**
+     * Удаляет новость по её ID.
+     * @param int $id ID новости.
+     * @return void
+     */
+    public static function deletePost(int $id): void
+    {
+        $params = ['id' => $id];
+        Db::getInstance()->query('DELETE FROM posts WHERE id = :id', $params);
+    }
+    public static function getItemByCode(string $code): ?object
+    {
+        $arRes = Db::getInstance()->row('SELECT * FROM posts WHERE code = :code', ['code' => $code]);
+        if (empty($arRes)) {
+            return null;
+        }
+        return PostInfo::getFromArray($arRes[0]);
+    }
 }

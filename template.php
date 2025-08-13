@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Document</title>
-    <link rel="stylesheet" href="/public/components/header/public/css/styles.css">
-    <link rel="stylesheet" href="/public/components/footer/public/css/styles.css">
+    <link rel="stylesheet" href="/public/components/header/default/css/styles.css">
+    <link rel="stylesheet" href="/public/components/footer/default/css/styles.css">
     <link rel="stylesheet" href="/public/components/main/css/styles.css">
     <link rel="stylesheet" href="default.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -39,13 +39,13 @@
     <div class="header__socials">
         <div class="header__socials-item">
             <div class="header__socials-icon">
-                <img src="/public/components/header/public/images/twitch.png" alt="ХУЙ">
+                <img src="/public/images/twitch.png" alt="ХУЙ">
             </div>
             <a href="" class="header__socials-link">OleksaGompers</a>
         </div>
         <div class="header__socials-item">
             <div class="header__socials-icon">
-                <img src="/public/components/header/public/images/twitch.png" alt="">
+                <img src="/public/images/twitch.png" alt="">
             </div>
             <a href="" class="header__socials-link">vraaaaven</a>
         </div>
@@ -54,7 +54,7 @@
 <div class="container">
     <div class="main">
         <div class="main__banner">
-            <img src="/public/components/main/images/24122036_08084d7ee2.jpeg" alt="" class="main_banner-image">
+            <img src="/public/images/24122036_08084d7ee2.jpeg" alt="" class="main_banner-image">
             <div class="main__banner-text-container">
                 <h1 class="main__banner-headline">FIUGHSAIGFIUSGUFI</h1>
                 <div class="main__banner-text">
@@ -72,7 +72,7 @@
             <div class="main__slider">
                 <div class="main__slider-item">
                     <a href="" class="main__slider-link">
-                        <img src="/public/components/main/images/photo_2024-04-16_11-35-40.jpg" alt=""
+                        <img src="/public/images/photo_2024-04-16_11-35-40.jpg" alt=""
                              class="main__slider-img">
                         <div class="main__slider-text">НОВОСТЬ ДАВАЙ УРА</div>
                         <div class="main__slider-date">11.11.2024</div>
@@ -80,7 +80,7 @@
                 </div>
                 <div class="main__slider-item">
                     <a href="" class="main__slider-link">
-                        <img src="/public/components/main/images/photo_2024-04-16_11-35-40.jpg" alt=""
+                        <img src="/public/images/photo_2024-04-16_11-35-40.jpg" alt=""
                              class="main__slider-img">
                         <div class="main__slider-text">НОВОСТЬ ДАВАЙ УРА</div>
                         <div class="main__slider-date">11.11.2024</div>
@@ -88,7 +88,7 @@
                 </div>
                 <div class="main__slider-item">
                     <a href="" class="main__slider-link">
-                        <img src="/public/components/main/images/photo_2024-04-16_11-35-40.jpg" alt="" class="main__slider-img">
+                        <img src="/public/images/photo_2024-04-16_11-35-40.jpg" alt="" class="main__slider-img">
                         <div class="main__slider-text">НОВОСТЬ ДАВАЙ УРА</div>
                         <div class="main__slider-date">11.11.2024</div>
                     </a>
@@ -102,7 +102,7 @@
                     <div class="main__desc-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi dolorem doloremque eaque earum, esse et eum, eveniet facilis illo obcaecati odio optio porro quo reprehenderit sapiente suscipit totam! Quod, veritatis.</div>
                 </div>
                 <div class="main__desc-img">
-                    <img src="/public/components/main/images/24122036_08084d7ee2.jpeg" alt="">
+                    <img src="/public/images/24122036_08084d7ee2.jpeg" alt="">
                 </div>
             </div>
             <div class="main__desc-item">
@@ -111,7 +111,7 @@
                     <div class="main__desc-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi dolorem doloremque eaque earum, esse et eum, eveniet facilis illo obcaecati odio optio porro quo reprehenderit sapiente suscipit totam! Quod, veritatis.</div>
                 </div>
                 <div class="main__desc-img">
-                    <img src="/public/components/main/images/24122036_08084d7ee2.jpeg" alt="">
+                    <img src="/public/images/24122036_08084d7ee2.jpeg" alt="">
                 </div>
             </div>
         </div>
@@ -159,7 +159,7 @@
             <div class="footer__headline">Соцсети</div>
             <div class="footer__socials-links">
                 <a href="" class="footer__socials-link">
-                    <img src="/public/components/header/public/images/twitch.png" alt="">
+                    <img src="/public/images/twitch.png" alt="">
                 </a>
             </div>
         </div>

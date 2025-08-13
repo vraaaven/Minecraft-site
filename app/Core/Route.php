@@ -9,6 +9,7 @@ class Route implements RouteInterface
     private array $routes = [];
     private array $params = [];
 
+
     public function __construct()
     {
         $arr = require 'app/config/routes.php';
@@ -26,35 +27,41 @@ class Route implements RouteInterface
 
     public function match(): bool
     {
-        $url = trim($_SERVER['REQUEST_URI'], '/');
+        $url = trim(strtok($_SERVER['REQUEST_URI'], '?'), '/');
         foreach ($this->routes as $route => $params) {
             if (preg_match($route, $url, $matches)) {
                 foreach ($matches as $key => $match) {
-                    $params[$key] = $match;
+                    if (is_string($key)) {
+                        $this->params[$key] = $match;
+                    }
                 }
-                $this->params = $params;
+                $this->params = array_merge($this->params, $params);
+                $this->params['url'] = '/'.$url;
                 return true;
             }
         }
         return false;
     }
 
+
     public function run(): void
     {
         if (!$this->match()) {
-            View::errorCode(404);
+            $this->errorCode(404);
         }
         $path = 'App\Controllers\\' . ucfirst($this->params['controller']) . 'Controller';
         $action = $this->params['action'];
         if (!class_exists($path) && !method_exists($path, $action)) {
-            View::errorCode(404);
+            self::errorCode(404);
         }
         $controller = new $path($this->params);
         $controller->$action();
     }
-    public static function redirect($url): void
+    public static function errorCode($code): void
     {
-        header('Location: ' . $url);
+        // Создаем контроллер для ошибок
+        $errorController = new \App\Controllers\ErrorController(['controller' => 'error','action' => 'index', 'view' => "errors/$code"]);
+        $errorController->index($code);
         exit;
     }
 }

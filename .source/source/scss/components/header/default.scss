@@ -1,0 +1,188 @@
+@import "../../variables";
+
+.header {
+  width: 100%;
+  background: linear-gradient(to bottom right, black, #0c102a);
+  display: flex;
+  font-family: $ff;
+  padding: 10px 30px;
+  color: $color;
+  font-weight: 700;
+  font-size: $fz;
+  z-index: 1000;
+
+
+  &.scroll {
+    position: fixed;
+    top: 0;
+    backdrop-filter: blur(10px);
+    background-color: rgba(255, 255, 255, 0.7);
+    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
+  }
+
+  a {
+    text-decoration: none;
+    line-height: $lh;
+  }
+
+  a:hover {
+    color: cornflowerblue;
+  }
+
+  &__container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex: 1;
+  }
+
+  &__menu {
+    display: flex;
+    gap: 30px;
+    margin-bottom: 0;
+  }
+
+  &__menu-item {
+    list-style: none;
+  }
+
+  &__control {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    a {
+      font-size: 0.75em;
+    }
+  }
+
+  &__logo-container {
+    width: 80px;
+    height: 80px;
+
+    img {
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  @media screen and (max-width: 1300px) {
+    & {
+      padding: 10px 20px;
+    }
+    &__menu {
+      gap: 15px;
+    }
+    &__logo-container {
+      width: 60px;
+      height: 60px;
+    }
+    &__menu-link {
+      font-size: 0.8em;
+    }
+  }
+
+  &__burger-btn {
+    display: none; // Скрываем по умолчанию
+    position: relative;
+    width: 24px;
+    height: 20px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    z-index: 1001;
+
+    .burger-line {
+      display: block;
+      position: absolute;
+      height: 2px;
+      width: 100%;
+      background: white;
+      border-radius: 2px;
+      transition: all 0.3s ease-in-out;
+
+      &:nth-child(1) {
+        top: 0;
+      }
+
+      &:nth-child(2) {
+        top: 50%;
+        transform: translateY(-50%);
+      }
+
+      &:nth-child(3) {
+        bottom: 0;
+      }
+    }
+
+    &.is-open {
+      .burger-line:nth-child(1) {
+        top: 50%;
+        transform: translateY(-50%) rotate(45deg);
+      }
+
+      .burger-line:nth-child(2) {
+        opacity: 0;
+      }
+
+      .burger-line:nth-child(3) {
+        bottom: 50%;
+        transform: translateY(50%) rotate(-45deg);
+      }
+    }
+  }
+
+  @media screen and (max-width: 1100px) {
+    & {
+      justify-content: space-between;
+      align-items: center;
+    }
+    &__container {
+      position: fixed;
+      top: 0;
+      right: 0;
+      height: 100vh;
+      width: 70%;
+      background: linear-gradient(to top right, black, #0c102a);
+      flex-direction: column;
+      justify-content: flex-start;
+      padding: 100px 20px;
+      transform: translateX(100%);
+      transition: transform 0.3s ease-in-out;
+      z-index: 1000;
+      nav {
+        width: 100%;
+      }
+    }
+    &__container.is-open {
+      transform: translateX(0);
+    }
+    &__menu {
+      flex-direction: column;
+      text-align: center;
+      width: 100%;
+      margin-bottom: 50px;
+      padding: 0;
+
+      &-item {
+        font-size: 1.2em;
+        margin-bottom: 0;
+      }
+    }
+    &__control {
+      margin-top: 30px;
+      justify-content: center;
+      gap: 10px;
+      width: 100%;
+      a {
+        font-size: 1em;
+      }
+      @media screen and (max-width: 767px) {
+        flex-direction: column;
+      }
+    }
+
+    &__burger-btn {
+      display: block; // Показываем кнопку-бургер
+    }
+  }
+}

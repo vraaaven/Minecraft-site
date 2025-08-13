@@ -4,31 +4,65 @@ namespace App\Core;
 
 class View
 {
-    private string $path;
+    public string $path;
+    public array $route;
 
-    public function __construct($route)
+    public function __construct(array $route)
     {
-        $this->path = $route['controller'] . '/' . $route['action'];
+        // Проверяем, есть ли в маршруте явно указанное имя вида
+        if (isset($route['view'])) {
+            $this->path = $route['view'];
+        } else {
+            $this->path = $route['controller'] . '/' . $route['action'];
+        }
+        $this->route = $route; // Сохраняем весь маршрут, если понадобится в дальнейшем
     }
 
-    public function render($vars = []): void
+    public function render($vars = [], $template = null): void
     {
-        extract($vars);
-        if (file_exists('public/views/' . $this->path . '.php')) {
-            require 'public/views/' . $this->path . '.php';
+        $viewName = $template ?? $this->route['view'];
+
+        $viewPath = 'public/views/' . $viewName . '.php';
+
+        if (file_exists($viewPath)) {
+            extract($vars);
+
+            ob_start();
+
+            require $viewPath;
+
+            $content = ob_get_clean();
+
+            $headContent = $this->renderStyles($vars['app']);
+            $bodyContent = $this->renderScripts($vars['app']);
+
+            $finalOutput = str_replace(
+                ['</head>', '</body>'],
+                ["$headContent</head>", "$bodyContent</body>"],
+                $content
+            );
+
+            echo $finalOutput;
         } else {
-            echo 'вид не найден';
+            Route::errorCode(404);
         }
     }
-    public function loadCss()
+
+    private function renderStyles($app): string
     {
-        //НАДО ДЕЛОТЬ!!!!
+        $html = '';
+        foreach ($app->getStyles() as $stylePath) {
+            $html .= "<link rel='stylesheet' href='{$stylePath}'>" . PHP_EOL;
+        }
+        return $html;
     }
 
-    public static function errorCode($code): void
+    private function renderScripts($app): string
     {
-        http_response_code($code);
-        require 'public/views/errors/' . $code . '.php';
-        exit;
+        $html = '';
+        foreach ($app->getScripts() as $scriptPath) {
+            $html .= "<script src='{$scriptPath}'></script>" . PHP_EOL;
+        }
+        return $html;
     }
 }

@@ -2,7 +2,7 @@
 
 return [
     'host' => 'localhost',
-    'dbname' => 'test_bd',
+    'dbname' => 'mageland',
     'user' => 'root',
     'password' => '',
     'charset' => 'utf8'
