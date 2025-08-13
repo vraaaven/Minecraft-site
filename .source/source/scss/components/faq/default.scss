@@ -1,0 +1,65 @@
+@import "../../variables";
+
+.faq-accordion {
+  font-family: $ff;
+  max-width: 900px;
+  margin: 0 auto;
+  color: white;
+
+  .faq__item {
+    margin-bottom: 10px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    overflow: hidden;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+  }
+
+  .faq__question {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    cursor: pointer;
+  }
+
+  .faq__title {
+    margin: 0;
+    font-size: 1.1em;
+    font-weight: 600;
+  }
+
+  .faq__toggle-icon {
+    font-size: 1.5em;
+    font-weight: 700;
+    transition: transform 0.3s ease;
+  }
+
+  .faq__item.active .faq__toggle-icon {
+    transform: rotate(45deg);
+  }
+
+  .faq__answer-wrapper {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+  }
+
+  .faq__item.active .faq__answer-wrapper {
+    max-height: 500px; /* Должно быть больше, чем высота ответа */
+  }
+
+  .faq__answer {
+    padding: 0 20px 20px 20px;
+    font-size: 1em;
+    line-height: 1.6;
+    color: #c0c0c0;
+
+    p {
+      margin: 0;
+    }
+  }
+}

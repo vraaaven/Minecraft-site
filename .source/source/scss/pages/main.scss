@@ -1,0 +1,17 @@
+@import "../variables";
+
+.main {
+  background: linear-gradient(to bottom left, #2b003b, #0c102a);
+  font-size: $fz;
+  font-family: $ff;
+  color: white;
+
+  &__info-block {
+    padding: $tb-margin-lg+40px $rl-margin-lg $tb-margin-lg;
+    @media screen and (max-width: 1100px) {
+      padding: 85px 30px;
+    }
+  }
+
+
+}

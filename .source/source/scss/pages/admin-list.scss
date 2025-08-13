@@ -1,0 +1,146 @@
+@import "../variables";
+
+.admin-list {
+  padding: 20px;
+  background-color: lightgray;
+  font-family: $ff-admin;
+  border-radius: 20px;
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+
+  &__title {
+    font-size: 2em;
+    margin: 0;
+    color: #333;
+  }
+
+  &__add-btn {
+    background-color: cornflowerblue;
+    color: #fff;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+      background-color: darken(cornflowerblue, 10%);
+    }
+  }
+
+  &__table-wrapper {
+    overflow-x: auto;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  &__table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #fff;
+    font-size: 0.9em;
+
+    th, td {
+      padding: 12px 15px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+
+    th {
+      background-color: #f8f8f8;
+      font-weight: bold;
+      color: #555;
+    }
+
+    tr:hover {
+      background-color: #f5f5f5;
+    }
+  }
+
+  &__actions {
+    display: flex;
+    gap: 10px;
+  }
+
+  &__action-btn {
+    padding: 5px 10px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 0.9em;
+
+    &--edit {
+      color: #fff;
+      background-color: #ffc107;
+
+      &:hover {
+        background-color: darken(#ffc107, 10%);
+      }
+    }
+
+    &--delete {
+      color: #fff;
+      background-color: #dc3545;
+
+      &:hover {
+        background-color: darken(#dc3545, 10%);
+      }
+    }
+  }
+
+  &__empty {
+    padding: 20px;
+    text-align: center;
+    color: #777;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  &__pagination {
+    margin-top: 20px;
+    text-align: center;
+  }
+  &__search {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+
+  &__search-input {
+    flex-grow: 1;
+    padding: 10px 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1em;
+    font-family: $ff-admin;
+
+    &:focus {
+      outline: none;
+      border-color: cornflowerblue;
+      box-shadow: 0 0 0 2px rgba(100, 149, 237, 0.2);
+    }
+  }
+
+  &__search-btn {
+    padding: 10px 15px;
+    background-color: cornflowerblue;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 1em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-family: $ff-admin;
+
+    &:hover {
+      background-color: darken(cornflowerblue, 10%);
+    }
+  }
+}

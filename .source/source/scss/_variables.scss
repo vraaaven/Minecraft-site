@@ -1,0 +1,24 @@
+@font-face {
+    font-family: mainFont;
+    src: url("/public/styles/fonts/minecraft.ttf");
+}
+@font-face {
+    font-family: Roboto-Regular;
+    src: url("/public/styles/fonts/Roboto-Regular.woff");
+}
+$ff: mainFont;
+$fz: 20px;
+$lh: 1.2em;
+$rl-margin-lg: 50px; //Отступ лево-право
+$tb-margin-lg: 80px; //верх-низ
+$color: white;
+
+$ff-admin: Roboto-Regular;
+
+/* TRANSITION */
+
+$transition-type: ease-in-out;
+$transition-speed: 0.2s;
+$transition: $transition-type $transition-speed;
+
+

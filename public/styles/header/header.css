@@ -1,0 +1,122 @@
+.header {
+    position: fixed;
+    top: 0;
+    background: white;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    font-family: "Styrene A LC";
+}
+.header.scroll {
+    backdrop-filter: blur(10px);
+    background-color: rgba(255, 255, 255, 0.7);
+    box-shadow: 0 1px 0 rgba(0,0,0,0.1);
+}
+.header__wrapper {
+    display: flex;
+    justify-content: space-between;
+    width: 1353px;
+    margin: 0 auto;
+    padding: 22px 20px 0 20px;
+    z-index: 10;
+    height: 137px;
+}
+.header-hav {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 0;
+    padding: 22px 0 0 0;
+    height: 121px;
+}
+.header-nav__list {
+    display: flex;
+    list-style: none;
+    align-items: center;
+    flex-wrap: wrap;
+    row-gap: 8px;
+    padding: 0 0 0 1px;
+}
+.header-nav__list li {
+    margin-right: 25px;
+}
+.header-nav__list-item-link {
+    text-decoration-line: none;
+    font-size: 26px;
+    font-weight: 500;
+    line-height: 20px;
+    letter-spacing: -0.05em;
+    color: #000000;
+    cursor: pointer;
+}
+.header-side {
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    height: 100%;
+    padding: 7px 0 0 0;
+}
+.header-side__bottom {
+    display: flex;
+    align-items: center;
+}
+.header-nav__list-item a:hover{
+    color: #ba1735;
+}
+.header-side__button {
+    font-family: "Styrene A LC";
+    border: none;
+    padding: 10px 15px 12px 15px;
+    margin-left: 24px;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 20px;
+    text-align: center;
+    letter-spacing: -0.05em;
+    border-radius: 10px;
+    cursor: pointer;
+    background: #ba1735;
+    color: #fff;
+}
+.header-side__burger {
+    display: none;
+}
+@media (max-width: 1160px) {
+    .header-side__top {
+        display: none;
+    }
+    .header-nav__list-item a
+    {
+        font-size: 50px;
+    }
+    .header-nav {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        margin: 0;
+        padding: 9px 0 0 0;
+        height: 72px;
+    }
+    .header__wrapper {
+        padding: 0 20px;
+        height: 72px;
+    }
+}
+@media (min-width: 900px) and (max-width: 1160px) {
+    .header-side {
+        padding: 0;
+    }
+}
+@media (max-width: 900px) {
+    .header-side__burger {
+        display: block;
+        margin: 0 0 0 30px;
+        padding: 4px 0 4px 8px;
+        cursor: pointer;
+    }
+}
+@media (max-width: 700px) {
+    .header-side__search,.header-side__button {
+        display: none;
+    }
+}

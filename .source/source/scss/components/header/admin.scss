@@ -1,0 +1,55 @@
+@import "../../variables";
+
+.header {
+  width: 100%;
+  display: flex;
+  font-family: $ff-admin;
+  padding: 10px 30px;
+  color: black;
+  font-weight: 700;
+  font-size: $fz;
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
+  &.scroll {
+    position: fixed;
+    top: 0;
+    z-index: 1000;
+    backdrop-filter: blur(10px);
+    background-color: rgba(255, 255, 255, 0.7);
+  }
+
+  a {
+    text-decoration: none;
+    line-height: $lh;
+  }
+
+  a:hover {
+    color: cornflowerblue;
+  }
+
+  &__container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex: 1;
+  }
+
+  &__menu {
+    display: flex;
+    gap: 30px;
+    margin-bottom: 0;
+  }
+
+  &__menu-item {
+    list-style: none;
+  }
+
+  &__control {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    a {
+      font-size: 0.75em;
+    }
+  }
+}

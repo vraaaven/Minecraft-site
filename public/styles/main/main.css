@@ -1,0 +1,134 @@
+.main {
+    font-family: Circe, sans-serif;
+    margin: 0 auto;
+    padding: 157px 30px;
+    max-width: 1350px;
+    color: #000000;
+}
+.main__title {
+    font-family: Circe, sans-serif;
+    margin-bottom: 20px;
+    margin-top: 10px;
+}
+
+.main__title h1 {
+    margin: 0;
+    font-family: "Circe", sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 50px;
+    line-height: 50px;
+}
+.main__title a {
+    color: black;
+    text-decoration: none;
+    margin: 0;
+    font-family: "Circe", sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 40px;
+    line-height: 50px;
+}
+.main__title a:hover {
+    color: #ba1735;
+}
+
+.main__news-list {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
+}
+
+.main__news-item {
+    display: inline-block;
+    background-color: #ba1735;
+    color: white;
+    border-radius: 6px;
+    padding: 10px 10px 10px 25px;
+    margin: 0 -10px 35px -10px;
+    text-decoration: none;
+    width: 75%;
+    min-height: 252px;
+}
+
+.main-list__label {
+    margin-bottom: 6px;
+    line-height: 16px;
+    display: inline-block;
+    text-transform: lowercase;
+    font-variant: small-caps;
+    font-size: 15px;
+    font-weight: bold;
+    letter-spacing: 0.08em;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.main__item-title {
+    width: calc(100%);
+    margin-bottom: 8px;
+    font-size: 30px;
+    line-height: 32px;
+    letter-spacing: -0.01em;
+}
+.main__item-subtitle {
+    width: calc(100%);
+    margin-bottom: 8px;
+    font-size: 20px;
+    line-height: 32px;
+    letter-spacing: -0.01em;
+}
+
+.main__item-date {
+    display: block;
+    margin-bottom: 40px;
+    font-size: 14px;
+    line-height: 12px;
+}
+
+@media (max-width: 1160px) {
+    .main-list {
+        padding: 82px 30px 0;
+    }
+}
+
+@media (max-width: 899px) {
+    .main-list {
+        padding: 82px 19px;
+    }
+
+    .main-list__title-card {
+        margin-top: 10px;
+        margin-bottom: 30px;
+    }
+
+    .main-list__title-card h1 {
+        margin: 0;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 32px;
+        line-height: 32px;
+    }
+
+    .main-list__title-card-count {
+        font-style: normal;
+        font-weight: normal;
+        font-size: 32px;
+        line-height: 32px;
+        color: #ba1735;
+    }
+    .main-list__cards {
+        padding: 0 19px;
+    }
+
+    .main-list__card {
+        width: 100%;
+        min-height: 240px;
+    }
+
+    .main-list__title {
+        width: calc(100% - 10px);
+        font-size: 22px;
+    }
+}

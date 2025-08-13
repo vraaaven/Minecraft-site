@@ -1,1 +1,6 @@
-/.idea
+vendor
+.source/node_modules
+.source/bower_components
+.idea
+app/config/db.php
+yml-blog.xml

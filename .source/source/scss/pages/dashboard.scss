@@ -1,0 +1,96 @@
+@import "../variables";
+
+.dashboard {
+  padding: 20px;
+  background-color: lightgray;
+  font-family: $ff-admin;
+  border-radius: 20px;
+
+  &__title {
+    font-size: 2em;
+    margin-bottom: 20px;
+    color: #333;
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+  }
+
+  &__card {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+  }
+
+  &__card-title {
+    margin: 0;
+    font-size: 1.5em;
+    color: #555;
+  }
+
+  &__card-count {
+    font-size: 1.8em;
+    font-weight: bold;
+    color: cornflowerblue;
+  }
+
+  &__list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    flex-grow: 1;
+  }
+
+  &__list-header {
+    font-weight: bold;
+    color: #777;
+    margin-bottom: 10px;
+  }
+
+  &__list-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid #f0f0f0;
+  }
+
+  &__list-item:last-child {
+    border-bottom: none;
+  }
+
+  &__list-item a {
+    text-decoration: none;
+    color: cornflowerblue;
+    font-weight: 500;
+  }
+
+  &__list-item-meta {
+    font-size: 0.8em;
+    color: #999;
+  }
+
+  &__card-link {
+    display: block;
+    margin-top: 20px;
+    text-align: right;
+    text-decoration: none;
+    color: cornflowerblue;
+    font-weight: bold;
+  }
+}
+
