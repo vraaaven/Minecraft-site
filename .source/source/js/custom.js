@@ -66,21 +66,22 @@ document.addEventListener('DOMContentLoaded', function() {
 document.addEventListener('DOMContentLoaded', () => {
     const burgerBtn = document.getElementById('burger-btn');
     const mobileMenu = document.getElementById('mobile-menu');
-
-    burgerBtn.addEventListener('click', () => {
-        // Переключаем класс для анимации бургера
-        burgerBtn.classList.toggle('is-open');
-        // Переключаем класс для показа/скрытия меню
-        mobileMenu.classList.toggle('is-open');
-    });
-
-    // Опционально: закрытие меню при клике на пункт
-    mobileMenu.querySelectorAll('a').forEach(link => {
-        link.addEventListener('click', () => {
-            burgerBtn.classList.remove('is-open');
-            mobileMenu.classList.remove('is-open');
+    if (burgerBtn) {
+        burgerBtn.addEventListener('click', () => {
+            // Переключаем класс для анимации бургера
+            burgerBtn.classList.toggle('is-open');
+            // Переключаем класс для показа/скрытия меню
+            mobileMenu.classList.toggle('is-open');
         });
-    });
+
+        // Опционально: закрытие меню при клике на пункт
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                burgerBtn.classList.remove('is-open');
+                mobileMenu.classList.remove('is-open');
+            });
+        });
+    }
 });
 
 
@@ -117,6 +118,20 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
 
+        const imageLore = document.querySelectorAll('.season-detail__story-box img');
+
+        if (imageLore.length > 0) {
+            imageLore.forEach(img => {
+                img.addEventListener('click', (e) => {
+                    console.log(img)
+                    const fullImageSrc = e.target.getAttribute('data-full-image');
+                    if (fullImageSrc) {
+                        openLightbox(fullImageSrc);
+                    }
+                });
+            });
+        }
+
         // 3. Проверяем, существует ли кнопка закрытия
         if (closeBtn) {
             closeBtn.addEventListener('click', closeLightbox);
@@ -134,5 +149,53 @@ document.addEventListener('DOMContentLoaded', () => {
                 closeLightbox();
             }
         });
+
     }
+});
+
+document.addEventListener('DOMContentLoaded', function () {
+
+    // 1. Находим все текстовые элементы, которые нужно обработать
+    const textElements = document.querySelectorAll('p, span, h1, h2, h3, h4, h5, h6, li, dt, dd, div');
+    // 2. Список предлогов и союзов, которые нельзя переносить
+    const prepositions = ['в', 'без', 'до', 'из', 'к', 'по', 'о', 'от', 'перед', 'при', 'через', 'с', 'у', 'а', 'и', 'но', 'да', 'или', 'либо', 'что', 'чтобы', 'как', 'когда', 'если', 'вы'];
+
+    // 3. Функция для обработки каждого элемента
+
+    textElements.forEach(element => {
+
+        // Получаем все текстовые узлы внутри элемента
+        const walker = document.createTreeWalker(element, NodeFilter.SHOW_TEXT);
+
+        const textNodes = [];
+
+        while (walker.nextNode()) {
+
+            textNodes.push(walker.currentNode);
+
+        }
+
+        // Обрабатываем каждый текстовый узел
+
+        textNodes.forEach(textNode => {
+
+            let text = textNode.nodeValue;
+
+
+            // Заменяем пробелы после коротких слов на неразрывные пробелы
+
+            text = text.replace(/(^|\s)([а-яё]{1,2})\s/gi, (match, prefix, word) => {
+
+
+
+                if (prepositions.includes(word.toLowerCase())) {
+
+                    return prefix + word + '\u00A0'; // \u00A0 - это неразрывный пробел
+
+                }
+                return match;
+            });
+            textNode.nodeValue = text;
+        });
+    });
 });

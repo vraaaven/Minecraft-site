@@ -89,7 +89,7 @@ function initInput() {
             fileNumber: "Выбрано файлов: %s",
             onFormStyled: function () {
                 $(".jq-selectbox__trigger-arrow").html('<svg class="icon icon-arrow"><use xlink:href="#icon-arrow"></svg>');
-                $(".jq-checkbox__div").html('<svg class="icon icon-checkbox"><use xlink:href="#icon-checkbox"></svg>');
+              //  $(".jq-checkbox__div").html('<svg class="icon icon-checkbox"><use xlink:href="#icon-checkbox"></svg>');
             },
         });
     }

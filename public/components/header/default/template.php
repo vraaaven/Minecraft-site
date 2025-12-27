@@ -14,6 +14,15 @@
                 <li class="header__menu-item">
                     <a href="/guides/" class="header__menu-link">Гайды</a>
                 </li>
+                <li class="header__menu-item">
+                    <a href="/players/" class="header__menu-link">Игроки</a>
+                </li>
+                <li class="header__menu-item">
+                    <a href="/map/" class="header__menu-link">Карта</a>
+                </li>
+                <li class="header__menu-item">
+                    <a href="/seasons/" class="header__menu-link">Лор</a>
+                </li>
                 <?if (\App\Models\User::isPlayer()):?>
                     <li class="header__menu-item">
                         <a href="/server/" class="header__menu-link">Сервер</a>
@@ -23,7 +32,7 @@
         </nav>
         <div class="header__control">
             <?if (isset($_SESSION['user_id'])):?>
-                <a href="/user/"><?=$_SESSION['user_name']?></a>
+                <a href="/user/<?=$_SESSION['user_id']?>/"><?=$_SESSION['user_name']?></a>
                 <a href="/logout">выйти</a>
             <?else:?>
                 <a href="/login/">вход</a>

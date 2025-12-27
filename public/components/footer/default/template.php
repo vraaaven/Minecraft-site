@@ -28,25 +28,25 @@
                     <div class="footer__socials-icon">
                         <img src="/public/images/twitch.png">
                     </div>
-                    <a href="" class="footer__socials-link">OleksaGompers</a>
+                    <a href="https://www.twitch.tv/oleksagompers" class="footer__socials-link" rel="nofollow">OleksaGompers</a>
                 </div>
                 <div class="footer__socials-item">
                     <div class="footer__socials-icon">
                         <img src="/public/images/twitch.png">
                     </div>
-                    <a href="" class="footer__socials-link">vraaaaven</a>
+                    <a href="https://www.twitch.tv/vraaaaven" class="footer__socials-link" rel="nofollow">vraaaaven</a>
                 </div>
                 <div class="footer__socials-item">
                     <div class="footer__socials-icon">
                         <img src="/public/images/tg-icon.png">
                     </div>
-                    <a href="" class="footer__socials-link">ТГ Олексы</a>
+                    <a href="https://t.me/+rwdgw65FHtxlMjQy" class="footer__socials-link" rel="nofollow">ТГ Олексы</a>
                 </div>
                 <div class="footer__socials-item">
                     <div class="footer__socials-icon">
                         <img src="/public/images/tg-icon.png">
                     </div>
-                    <a href="" class="footer__socials-link">ТГ Вравена</a>
+                    <a href="https://t.me/+77EG7_ICL-c0MjEy" class="footer__socials-link" rel="nofollow">ТГ Вравена</a>
                 </div>
             </div>
         </div>

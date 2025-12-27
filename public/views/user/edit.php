@@ -40,7 +40,6 @@ $app->addCss('/public/styles/css/pages/static.css');
             </div>
             <button type="submit">Сохранить изменения</button>
         </form>
-        <a href="/user/">Отмена</a>
     </div>
 <?php $app->getComponent('footer')->render(); ?>
 <? require_once 'public/layouts/default/end.php'; ?>

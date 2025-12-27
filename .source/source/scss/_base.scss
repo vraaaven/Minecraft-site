@@ -173,3 +173,24 @@ td {
 .container {
     margin: 30px $rl-margin-lg;
 }
+.skin-face-clipper {
+    height: var(--size);
+    image-rendering: pixelated;
+    left: 0;
+    overflow: hidden;
+    position: relative;
+    top: 0;
+    width: var(--size);
+}
+.skin-face-face, .skin-face-helmet {
+    position: absolute;
+    top: calc(var(--size) * -1);
+    width: calc(var(--size) * 8);
+    max-width: inherit;
+}
+.skin-face-face {
+    left: calc(var(--size) * -1);
+}
+.skin-face-helmet {
+    left: calc(var(--size) * -5);
+}

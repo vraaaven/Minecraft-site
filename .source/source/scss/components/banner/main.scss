@@ -63,9 +63,17 @@
       height: 50vh;
     }
     &__text-title {
-      font-size: 1.3em;
+      font-size: 1.2em;
       margin-bottom: 10px;
       line-height: 1.1;
     }
-  } 
+    &__text {
+      font-size: 1em;
+    }
+  }
+  @media screen and (max-width: 540px) {
+    &__item {
+      height: calc(100vh - 80px);
+    }
+  }
 }

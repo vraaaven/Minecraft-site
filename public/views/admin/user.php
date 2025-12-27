@@ -40,6 +40,10 @@ $app->getComponent('header', [], 'admin')->render();
                     <label for="twitch_name" class="admin-form__label">Имя на Twitch:</label>
                     <input type="text" id="twitch_name" name="twitch_name" value="<?= htmlspecialchars($user['twitch_name'] ?? '') ?>" class="admin-form__input">
                 </div>
+                <div class="admin-form__group">
+                    <label for="name" class="admin-form__label">Рейтинг:</label>
+                    <input type="number" id="rating" name="rating" value="<?= htmlspecialchars($user['rating'] ?? '') ?>" required class="admin-form__input">
+                </div>
 
                 <div class="admin-form__group admin-form__group--checkbox">
                     <input type="hidden" name="is_player" value="0">

@@ -15,6 +15,9 @@
                     <a href="/admin/pages/" class="header__menu-link">Страницы</a>
                 </li>
                 <li class="header__menu-item">
+                    <a href="/admin/seasons/" class="header__menu-link">Сезоны</a>
+                </li>
+                <li class="header__menu-item">
                     <a href="/" class="header__menu-link">Вернуться на сайт</a>
                 </li>
             </ul>

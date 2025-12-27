@@ -1,8 +1,11 @@
 <?php
 // App/Lib/Mailer.php
 
+namespace App\Lib;
+
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
+
 
 class Mailer
 {

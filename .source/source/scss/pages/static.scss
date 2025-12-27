@@ -7,6 +7,7 @@
   color: white;
   padding-bottom: $tb-margin-lg;
   min-height: 70vh;
+  line-height: 120%;
 
   h1 {
     padding: $tb-margin-lg $rl-margin-lg 30px;
@@ -118,47 +119,152 @@
   }
   &.user-profile {
     h1 {
-      padding: 40px 0px 20px;
+      text-align: center;
+      padding: 40px 0 20px;
     }
     padding: 0 50px;
-    p {
-      background: rgba(0, 0, 0, 0.3);
-      border-radius: 8px;
-      font-size: 1.1em;
-      line-height: 1.4;
-      &:first-of-type {
-        margin-top: 40px;
-      }
-      span {
-        font-weight: 700;
-        color: #6495ed;
+    @media screen and (max-width: 840px) {
+      padding:0 15px 50px;
+    }
+
+    // --- Стили для карточки игрока ---
+    .user-card {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 30px;
+      background: rgba(0, 0, 0, 0.5); /* Более темный фон для карточки */
+      border-radius: 15px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.7);
+      display: flex; /* Используем Flexbox */
+      flex-direction: row;
+      align-items: flex-start; /* Выравнивание по верхнему краю */
+      gap: 40px; /* Отступ между колонками */
+      border: 1px solid rgba(100, 149, 237, 0.3); /* Легкая синяя рамка */
+
+      @media screen and (max-width: 840px) {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 20px;
+        max-width: 100%;
+        padding: 15px;
       }
     }
 
-    a {
-      display: inline-block;
-      margin-top: 30px;
-      margin-left: auto;
-      margin-right: auto;
-      padding: 12px 25px;
-      background: #6495ed;
-      color: white;
-      font-size: 1em;
+    .user-card__media {
+      flex-shrink: 0;
+      padding: 10px;
+      background: rgba(255, 255, 255, 0.05); /* Фон для скина */
+      border-radius: 10px;
+    }
+
+    .user-card__info {
+      flex-grow: 1;
+      text-align: left;
+      max-width: 100%;
+
+      @media screen and (max-width: 840px) {
+        text-align: center;
+        width: 100%;
+      }
+    }
+
+    .user-card__name {
+      font-size: 2.2em;
       font-weight: 700;
-      text-decoration: none;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: background 0.3s, transform 0.2s;
+      color: #6495ed; /* Выделяем никнейм */
+      margin-bottom: 20px;
 
-      &:hover {
-        background: darken(#6495ed, 10%);
-        transform: translateY(-2px);
+      @media screen and (max-width: 840px) {
+        margin-top: 0;
+      }
+      @media screen and (max-width: 500px) {
+        font-size: 1.2em;
+        margin-bottom: 10px;
       }
     }
-    @media screen and (max-width: 1100px) {
-      & {
-        padding: 0 30px;
+
+    .user-card__rating {
+      font-size: 1.5em;
+      margin-bottom: 25px;
+      padding: 10px 0;
+      border-bottom: 1px dashed rgba(255, 255, 255, 0.2);
+      @media screen and (max-width: 500px) {
+        font-size: 1em;
+      }
+    }
+
+    .user-card__item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      max-width: 100%;
+      flex-wrap: wrap;
+      gap: 5px;
+      @media screen and (max-width: 500px) {
+        font-size: 0.9em;
+      }
+
+      .label {
+        font-weight: 400;
+        color: #ccc;
+      }
+
+      .value {
+        font-weight: 600;
+      }
+    }
+
+    /* Цвета для специальных статусов */
+    .is-player-yes { color: #5cb85c; } /* Зеленый */
+    .is-player-no { color: #f0ad4e; } /* Желтый */
+    .is-admin-yes { color: #d9534f; } /* Красный */
+    .rating-value { color: #6495ed; } /* Синий */
+
+    .user-card__actions {
+      margin-top: 30px;
+      display: flex;
+      gap: 15px;
+
+      @media screen and (max-width: 840px) {
+        justify-content: center;
+        width: 100%;
+        flex-direction: column;
+        a {
+          margin: 0;
+        }
+      }
+
+      .btn-primary, .btn-secondary {
+        // Переиспользуем стили кнопки из вашего существующего CSS,
+        // но делаем их как классы, а не только для тега <a>
+        display: inline-block;
+        padding: 10px 20px;
+        font-size: 0.9em;
+        font-weight: 700;
+        text-decoration: none;
+        border-radius: 8px;
+        transition: background 0.3s, transform 0.2s;
+        border: 2px solid transparent;
+      }
+
+      .btn-primary {
+        background: #6495ed;
+        color: white;
+        &:hover {
+          background: darken(#6495ed, 10%);
+        }
+      }
+
+      .btn-secondary {
+        background: none;
+        color: #6495ed;
+        border-color: #6495ed;
+        &:hover {
+          background: rgba(100, 149, 237, 0.1);
+        }
       }
     }
   }
@@ -175,6 +281,21 @@
     form {
       margin: 40px 20px;
       padding: 20px;
+    }
+  }
+  &__map {
+    h1 {
+
+    }
+  }
+  &__map-container {
+    iframe {
+      border: none;
+      height: calc(100vh - 100px);
+      width: 100%;
+      @media screen and (max-width: 1200px) {
+        height: calc(100vh - 80px);
+      }
     }
   }
 }

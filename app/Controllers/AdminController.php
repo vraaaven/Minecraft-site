@@ -185,7 +185,7 @@ class AdminController extends Controller
         if ($searchQuery) {
             $baseUrl .= '?name=' . urlencode($searchQuery) . '&page=';
         } else {
-            $baseUrl .= ':id';
+            $baseUrl .= '';
         }
         $totalPages = ceil($totalUsers / $limit);
 
@@ -350,5 +350,61 @@ class AdminController extends Controller
             Page::delete((int)$pageId);
         }
         $this->redirect('/admin/pages');
+    }
+    // Сезоны
+    public function seasons(): void
+    {
+        $this->checkAdminAccess();
+        $app = new App($this->route);
+        $vars = [
+            'app' => $app,
+            'seasonsList' => \App\Models\Season::getList(),
+        ];
+        $this->view->render($vars);
+    }
+
+    public function addSeason(): void
+    {
+        $this->checkAdminAccess();
+        if (!empty($_POST)) {
+            $seasonId = \App\Models\Season::create($_POST);
+            if (isset($_POST['players']) && is_array($_POST['players'])) {
+                \App\Models\Season::syncPlayers($seasonId, $_POST['players']);
+            }
+            $this->redirect('/admin/seasons');
+        }
+
+        $app = new App($this->route);
+        $vars = [
+            'app' => $app,
+            'item' => null,
+            'allUsers' => User::getList(1, 1000), // Получаем всех для выбора
+        ];
+        $this->view->render($vars, 'admin/editSeason');
+    }
+
+    public function editSeason(): void
+    {
+        $this->checkAdminAccess();
+        $id = $this->route['id'] ?? null;
+        $season = \App\Models\Season::findById((int)$id);
+
+        if (!$season) $this->redirect('/admin/seasons');
+
+        if (!empty($_POST)) {
+            \App\Models\Season::update($id, $_POST);
+            $players = $_POST['players'] ?? [];
+            \App\Models\Season::syncPlayers($id, $players);
+            $this->redirect('/admin/seasons');
+        }
+
+        $app = new App($this->route);
+        $vars = [
+            'app' => $app,
+            'item' => $season,
+            'selectedPlayers' => \App\Models\Season::getPlayerIds($id),
+            'allUsers' => User::getList(1, 1000),
+        ];
+        $this->view->render($vars);
     }
 }

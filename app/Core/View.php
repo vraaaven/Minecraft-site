@@ -51,8 +51,9 @@ class View
     private function renderStyles($app): string
     {
         $html = '';
+        $version = time();
         foreach ($app->getStyles() as $stylePath) {
-            $html .= "<link rel='stylesheet' href='{$stylePath}'>" . PHP_EOL;
+            $html .= "<link rel='stylesheet' href='{$stylePath}?v={$version}'>" . PHP_EOL;
         }
         return $html;
     }
@@ -60,8 +61,9 @@ class View
     private function renderScripts($app): string
     {
         $html = '';
+        $version = time();
         foreach ($app->getScripts() as $scriptPath) {
-            $html .= "<script src='{$scriptPath}'></script>" . PHP_EOL;
+            $html .= "<script src='{$scriptPath}?v={$version}'></script>" . PHP_EOL;
         }
         return $html;
     }

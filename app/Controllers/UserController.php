@@ -4,36 +4,14 @@ namespace App\Controllers;
 
 use App\Lib\App;
 use App\Models\User;
+use App\Lib\SkinHelper;
 
 class UserController extends Controller
 {
-    public function show(): void
-    {
-
-        $meta = [
-            'title' => 'Профиль пользователя',
-            'description' => 'Информация о вашем аккаунте.',
-            'keywords' => 'профиль, аккаунт, пользователь'
-        ];
-        $user = $this->getValidUser();
-        $app = new App($meta);
-        $app->addCustomData('user', $user);
-
-        $vars = [
-            'app' => $app
-        ];
-        $this->view->render($vars);
-    }
-
     public function edit(): void
     {
-        $meta = [
-            'title' => 'Редактировароние пользователя',
-            'description' => 'Информация о вашем аккаунте.',
-            'keywords' => 'профиль, аккаунт, пользователь'
-        ];
         $user = $this->getValidUser();
-        $app = new App($meta);
+        $app = new App($this->route);
         $app->addCustomData('user', $user);
         $app->addCustomData('errors', []);
 
@@ -71,6 +49,86 @@ class UserController extends Controller
         }
 
         $this->redirect('/user');
+    }
+
+    public function publicShow(): void
+    {
+        $userId = $this->route['id'] ?? null;
+        $user = $userId ? User::findById((int)$userId) : null;
+
+        if (!$user) {
+            $this->redirect('/404');
+            return;
+        }
+
+        $skinUrl = SkinHelper::getSkinUrl($user['name']);
+
+        $app = new App($this->route);
+        $app->addCustomData('user', $user);
+
+        $vars = [
+            'app' => $app,
+            'skin'=> $skinUrl
+        ];
+        $this->view->render($vars);
+    }
+    public function list(): void
+    {
+        $page = $this->route['id'] ?? 1;
+        $limit = 100;
+
+        // Устанавливаем срок жизни кеша: 24 часа
+        $cacheLifetimeSeconds = 24 * 3600;
+
+        $players = User::getPlayersList((int)$page, $limit);
+        $playersData = [];
+
+        foreach ($players as $player) {
+            $skinUrl = $player['skin_url'];
+            $currentTime = time();
+            $checkedTime = strtotime($player['skin_checked_at'] ?? '2000-01-01'); // Если null, ставим старую дату
+
+            $needsUpdate = empty($skinUrl) ||
+                ($currentTime - $checkedTime) > $cacheLifetimeSeconds;
+
+            if ($needsUpdate) {
+
+                $newUrl = SkinHelper::getSkinUrl($player['name']);
+
+                // Формируем данные для обновления
+                $updateData = [
+                    'skin_checked_at' => date('Y-m-d H:i:s', $currentTime)
+                ];
+
+                if ($newUrl && $newUrl !== $skinUrl) {
+                    // Если скин найден ИЛИ изменился
+                    $updateData['skin_url'] = $newUrl;
+                    $skinUrl = $newUrl; // Обновляем переменную для текущего цикла
+                } elseif (!$newUrl && !empty($skinUrl)) {
+                    // Если скин пропал (новый URL - null, старый был), очищаем URL
+                    $updateData['skin_url'] = null;
+                    $skinUrl = null;
+                } elseif (!$newUrl && empty($skinUrl)) {
+                    // Скина не было и нет, просто обновляем время, чтобы не проверять 24 часа
+                    // Здесь не нужно ничего делать, просто обновится checked_at ниже
+                }
+
+                // Обновляем базу данных
+                User::update($player['id'], $updateData);
+
+            }
+
+            $playersData[] = [
+                'user' => $player,
+                'skinUrl' => $skinUrl // Используем актуальный или кешированный URL
+            ];
+        }
+
+        $app = new App($this->route);
+        $app->addCustomData('playersData', $playersData);
+
+        $vars = ['app' => $app];
+        $this->view->render($vars);
     }
 
     public function delete(): void

@@ -150,4 +150,19 @@ class User
         $sql = 'SELECT COUNT(id) FROM users WHERE name LIKE :name';
         return Db::getInstance()->column($sql, $params);
     }
+    public static function getPlayersList(int $page, int $limit): array
+    {
+        $params = [
+            'start' => ($page - 1) * $limit,
+            'limit' => $limit,
+        ];
+        // Сортируем по id по возрастанию (ASC) - чем меньше id, тем раньше зарегистрирован
+        $sql = 'SELECT * FROM users WHERE is_player = 1 ORDER BY id ASC LIMIT :start, :limit';
+        return Db::getInstance()->row($sql, $params);
+    }
+    public static function getPlayersCount(): int
+    {
+        $sql = 'SELECT COUNT(id) FROM users WHERE is_player = 1';
+        return Db::getInstance()->column($sql);
+    }
 }

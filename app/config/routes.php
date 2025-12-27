@@ -69,6 +69,11 @@ return [
         'action' => 'users',
         'view' => 'admin/users'
     ],
+    'admin/users/{id:\d+}' => [
+        'controller' => 'Admin',
+        'action' => 'users',
+        'view' => 'admin/users'
+    ],
     'admin/users/edit/{id:\d+}' => [
         'controller' => 'Admin',
         'action' => 'editUser',
@@ -125,12 +130,6 @@ return [
     ],
 
 
-
-    'user' => [
-        'controller' => 'User',
-        'action' => 'show',
-        'view' => 'user/show'
-    ],
     'user/edit' => [
         'controller' => 'User',
         'action' => 'edit',
@@ -140,6 +139,58 @@ return [
         'controller' => 'User',
         'action' => 'update'
     ],
+    'user/{id:\d+}' => [
+        'controller' => 'User',
+        'action' => 'publicShow',
+        'view' => 'user/public' // Новый шаблон
+    ],
+    'players' => [
+        'controller' => 'User',
+        'action' => 'list',
+        'view' => 'user/players-list'
+    ],
+    // Если хотите пагинацию:
+    'players/{id:\d+}' => [
+        'controller' => 'User',
+        'action' => 'list',
+        'view' => 'user/players-list'
+    ],
+
+    //seasons//
+    // --- ПУБЛИЧНАЯ ЧАСТЬ СЕЗОНОВ ---
+    'seasons' => [
+        'controller' => 'Season',
+        'action' => 'index',
+        'view' => 'seasons/index'
+    ],
+    'seasons/{id:\d+}' => [
+        'controller' => 'Season',
+        'action' => 'show',
+        'view' => 'seasons/detail'
+    ],
+
+    // --- АДМИН-ПАНЕЛЬ: СЕЗОНЫ ---
+    'admin/seasons' => [
+        'controller' => 'Admin',
+        'action' => 'seasons',
+        'view' => 'admin/seasons'
+    ],
+    'admin/seasons/add' => [
+        'controller' => 'Admin',
+        'action' => 'addSeason',
+        'view' => 'admin/editSeason'
+    ],
+    'admin/seasons/edit/{id:\d+}' => [
+        'controller' => 'Admin',
+        'action' => 'editSeason',
+        'view' => 'admin/editSeason'
+    ],
+    'admin/seasons/delete/{id:\d+}' => [
+        'controller' => 'Admin',
+        'action' => 'deleteSeason',
+    ],
+
+    //seasons//
 
 
     'detail/{id:\d+}' => [
